@@ -1,0 +1,41 @@
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-compass{
+    color:#fe424d;
+    font-size:2rem;
+}
+.nav-link{
+    color:#222222 !important;
+}
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 10px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border-top: 1px solid #ddd;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+    color: #333;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.footer .company-name {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.footer .footer-links a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer .footer-links a:hover {
+    text-decoration: underline;
+}
