@@ -1,3 +1,4 @@
+
 .navbar{
     height: 5rem;
     background-color: white;
@@ -38,4 +39,104 @@
 
 .footer .footer-links a:hover {
     text-decoration: underline;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.listings-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.listing-card {
+  width: 300px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 4px 3px 13px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.listing-card:hover {
+  transform: scale(1.02);
+}
+
+.listing-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.listing-details {
+  padding: 15px;
+}
+
+.listing-title {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.listing-title:hover {
+  text-decoration: underline;
+}
+
+.listing-location,
+.listing-price,
+.listing-description {
+  color: #555;
+  margin: 5px 0;
+}
+
+.form-container {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+  width: 100%;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.textarea-field {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #2d72d9;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1b4fa3;
 }
