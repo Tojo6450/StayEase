@@ -1,26 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Listing | WanderLust</title>
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body>
-    <div class="form-container">
-      <h2 class="form-title">Create a New Listing</h2>
-      <form id="listing-form" method="POST" action="/listings">
-        <input class="input-field" name="listing[title]" placeholder="Enter title" type="text" required />
-        <textarea class="input-field textarea-field" name="listing[description]" placeholder="Enter description" required></textarea>
-        <input class="input-field" name="listing[image][filename]" placeholder="Enter image filename" type="text" required />
-        <input class="input-field" name="listing[image][url]" placeholder="Enter image URL" type="text" required />
-        <input class="input-field" name="listing[price]" placeholder="Enter price" type="number" min="0" required />
-        <input class="input-field" name="listing[country]" placeholder="Enter country" type="text" required />
-        <input class="input-field" name="listing[location]" placeholder="Enter location" type="text" required />
-        <div class="submit-btn" onclick="document.getElementById('listing-form').submit();">
-          Add Listing
-        </div>
-      </form>
-    </div>
-  </body>
-</html>
+<% layout("/layouts/boilerplate") %>
+
+<div class="container py-5">
+  <div class="mx-auto" style="max-width: 600px;">
+    <h2 class="mb-4 text-center">Create a New Listing</h2>
+    <form id="listing-form" method="POST" action="/listings" class="needs-validation" novalidate>
+
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="listing[title]" placeholder="Enter title" required>
+        <div class="invalid-feedback">Title is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="listing[description]" rows="3" placeholder="Enter description" required></textarea>
+        <div class="invalid-feedback">Description is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" class="form-control" id="image" name="listing[image]" placeholder="Enter image URL" >
+        <div class="invalid-feedback">Image URL is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" name="listing[price]" pcdlaceholder="Enter price" min="0" required>
+        <div class="invalid-feedback">Price is required and must be non-negative.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="country" class="form-label">Country</label>
+        <input type="text" class="form-control" id="country" name="listing[country]" placeholder="Enter country" required>
+        <div class="invalid-feedback">Country is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="listing[location]" placeholder="Enter location" required>
+        <div class="invalid-feedback">Location is required.</div>
+      </div>
+
+      <button class="btn btn-primary w-100">Add Listing</button>
+    </form>
+  </div>
+</div>
