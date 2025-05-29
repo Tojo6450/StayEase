@@ -1,17 +1,64 @@
 <% layout("/layouts/boilerplate") %>
-  <body>
-    <h3>Listing Details :</h3>
-    <ul>
-      <li><%= listing.title %></li>
-      <li><%= listing.description %></li>
-      <li>&#8377; <%= listing.price.toLocaleString("en-IN") %></li>
-      <li><%= listing.location %></li>
-      <li><%= listing.country %></li>
-    </ul>
-    <br />
-    <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
-    <br /><br />
-    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-      <button>Delete this listing</button>
-    </form>
-  </body>
+
+<body class="bg-light">
+  <div class="container min-vh-75 py-5">
+    <!-- Listing Title at the Top -->
+    <h1 class="text-center text-primary mb-4"><%= listing.title %></h1>
+
+    <div class="card shadow-sm mx-auto" style="max-width: 800px;">
+      <div class="card-body">
+        <!-- Listing Image -->
+        <% if (listing.image) { %>
+          <img src="<%= listing.image %>" alt="Listing Image" class="img-fluid rounded mb-4" style="width: 100%; max-height: 400px; object-fit: cover;">
+        <% } else { %>
+          <p class="text-muted text-center">No image available.</p>
+        <% } %>
+
+        <!-- Listing Details -->
+        <ul class="list-group list-group-flush mb-4">
+          <li class="list-group-item">
+            <strong>Description:</strong> <%= listing.description %>
+          </li>
+          <li class="list-group-item">
+            <strong>Price:</strong> ₹ <%= listing.price.toLocaleString("en-IN") %>
+          </li>
+          <li class="list-group-item">
+            <strong>Location:</strong> <%= listing.location %>
+          </li>
+          <li class="list-group-item">
+            <strong>Country:</strong> <%= listing.country %>
+          </li>
+        </ul>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning">
+            <i class="bi bi-pencil-square"></i> Edit Listing
+          </a>
+
+          <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this listing?')">
+              <i class="bi bi-trash"></i> Delete Listing
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-8 offset-3">
+  <h3>Leave a Review</h3>
+  <form method="POST" action="/listings/<%= listing.id %>/reviews" class="needs-validation" novalidate>
+    <div class="mb-3">
+      <label for="rating" class="form-label">Rating</label>
+      <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range">
+    </div>
+    <div class="mb-3">
+      <label for="comment" class="form-label">Comments</label>
+      <textarea name="review[comment]" id="comment" cols="30" rows="10" required class="form-control"></textarea>
+    </div>
+    <button class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+</body>

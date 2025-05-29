@@ -141,3 +141,7 @@
 .submit-btn:hover {
   background-color: #1b4fa3;
 }
+.min-vh-75 {
+  min-height: 70vh;
+}
+
