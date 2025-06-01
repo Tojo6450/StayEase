@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="col-8 offset-3">
+  <div class="col-8 offset-2">
   <h3>Leave a Review</h3>
   <form method="POST" action="/listings/<%= listing.id %>/reviews" class="needs-validation" novalidate>
     <div class="mb-3">
@@ -55,10 +55,46 @@
     </div>
     <div class="mb-3">
       <label for="comment" class="form-label">Comments</label>
-      <textarea name="review[comment]" id="comment" cols="30" rows="10" required class="form-control"></textarea>
+      <textarea name="review[comment]" id="comment" cols="25" rows="5" required class="form-control"></textarea>
     </div>
     <button class="btn btn-primary">Submit</button>
   </form>
-</div>
+  
+  <% if (listing.reviews && listing.reviews.length > 0) { %>
+  <div class="mt-4">
+    <h4>Reviews</h4>
+    <div class="row g-3">
+      <% listing.reviews.forEach((review, index) => { %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+              <div class="mb-2 text-warning">
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <i class="fa<%= i <= review.rating ? 's' : 'r' %> fa-star"></i>
+                <% } %>
+              </div>
+              <p class="card-text"><%= review.comment %></p>
+              <hr>
+              <p class="text-muted mb-0">— 
+                <% 
+                  const placeholderNames = ['John Doe', 'Jane Smith', 'Alex Taylor', 'Chris Johnson', 'Morgan Lee'];
+                  const name = placeholderNames[index % placeholderNames.length]; 
+                %>
+                <%= name %>
+              </p>
+              <form 
+              class="p-1" method="POST"
+              action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+              <button class="btn btn-sm btn-dark">Delete</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+<% } else { %>
+  <p class="text-muted mt-4">No reviews yet.</p>
+<% } %>
 
 </body>
