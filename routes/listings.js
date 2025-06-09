@@ -3,6 +3,7 @@ const router = express.Router();
 const Listing = require("../models/listing");
 const { listingSchema } = require("../shema");
 const ExpressError = require("../utils/ExpressError");
+const {isLoggedin} = require("../middleware.js")
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -25,12 +26,12 @@ router.get("/", async (req, res, next) => {
 });
 
 // New Form
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedin, (req, res) => {
   res.render("listings/new");
 });
 
 // Create
-router.post("/", validateListing, async (req, res, next) => {
+router.post("/", isLoggedin,validateListing, async (req, res, next) => {
   try {
     const data = req.body.listing;
     if (!data.image || data.image.trim() === "") delete data.image;
@@ -59,7 +60,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Edit Form
-router.get("/:id/edit", async (req, res, next) => {
+router.get("/:id/edit",isLoggedin, async (req, res, next) => {
   try {
     const { id } = req.params;
     const listing = await Listing.findById(id);
@@ -76,7 +77,7 @@ router.get("/:id/edit", async (req, res, next) => {
 });
 
 // Update
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isLoggedin,async (req, res, next) => {
   try {
     const { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -88,7 +89,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 // Delete
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id",isLoggedin, async (req, res, next) => {
   try {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);
