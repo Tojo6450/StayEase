@@ -14,7 +14,7 @@ const listingsRoutes = require("./routes/listings");
 const reviewsRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = "mongodb://127.0.0.1:27017/stayease";
 mongoose.connect(MONGO_URL).then(() => console.log("Connected to DB"));
 
 app.set("view engine", "ejs");
@@ -55,6 +55,7 @@ passport.deserializeUser(User.deserializeUser())
 app.use((req,res,next)=>{
   res.locals.success= req.flash("success");
   res.locals.error=req.flash("error")
+  res.locals.curUser=req.user;
   next();
 })
 

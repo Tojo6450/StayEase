@@ -1,19 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listing");
-const { listingSchema } = require("../shema");
-const ExpressError = require("../utils/ExpressError");
-const {isLoggedin} = require("../middleware.js")
+const {isLoggedin,isOwner,validateListing} = require("../middleware.js")
 
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errmsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errmsg);
-  } else {
-    next();
-  }
-};
 
 // Index
 router.get("/", async (req, res, next) => {
@@ -36,6 +25,7 @@ router.post("/", isLoggedin,validateListing, async (req, res, next) => {
     const data = req.body.listing;
     if (!data.image || data.image.trim() === "") delete data.image;
     const newListing = new Listing(data);
+    newListing.owner = req.user._id
     await newListing.save();
     req.flash("success","New Listing created!")
     res.redirect("/listings");
@@ -48,19 +38,26 @@ router.post("/", isLoggedin,validateListing, async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate({
+      path:"reviews",
+      populate:{
+        path:"author",
+      }
+    })
+      .populate("owner");
     if(!listing){
       req.flash("error","Listing you created for does not exist!")
       res.redirect("/listings");
     }
-    else res.render("listings/show", { listing });
+    console.log(listing)
+     res.render("listings/show", { listing });
   } catch (err) {
     next(err);
   }
 });
 
 // Edit Form
-router.get("/:id/edit",isLoggedin, async (req, res, next) => {
+router.get("/:id/edit",isLoggedin, isOwner,async (req, res, next) => {
   try {
     const { id } = req.params;
     const listing = await Listing.findById(id);
@@ -77,7 +74,7 @@ router.get("/:id/edit",isLoggedin, async (req, res, next) => {
 });
 
 // Update
-router.put("/:id", isLoggedin,async (req, res, next) => {
+router.put("/:id", isLoggedin,isOwner,async (req, res, next) => {
   try {
     const { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -89,7 +86,7 @@ router.put("/:id", isLoggedin,async (req, res, next) => {
 });
 
 // Delete
-router.delete("/:id",isLoggedin, async (req, res, next) => {
+router.delete("/:id",isLoggedin,isOwner, async (req, res, next) => {
   try {
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);
