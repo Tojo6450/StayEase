@@ -4,7 +4,7 @@
   <div class="listings-container">
     <% for(let listing of allListings) { %>
       <div class="listing-card">
-        <img src="<%= listing.image %>" alt="Listing Image" class="listing-image" />
+        <img src="<%= listing.image.url %>" alt="Listing Image" class="listing-image" />
         <div class="listing-details">
           <h3><a href="/listings/<%= listing._id %>" class="listing-title"><%= listing.title %></a></h3>
           <p class="listing-location"><%= listing.location %>, <%= listing.country %></p>

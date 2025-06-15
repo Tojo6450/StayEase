@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary sticky-top border-bottom">
+<nav class="navbar navbar-expand-md sticky-top border-bottom fading-navbar">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><i class="fa-regular fa-compass"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,18 +6,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link "  href="/">Home</a>
+        <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/listings">All listings</a>
         <a class="nav-link" href="/listings/new">Add new listings</a>
-        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        <!-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
       </div>
-      <div class="navbar-nav ms-auto">
-        <% if(!curUser) { %>
-        <a class="nav-link" href="/signup">Sign up</a>
-        <a class="nav-link" href="/login">Log in</a>
-        <% } %> 
-        <% if(curUser) { %>
-        <a class="nav-link" href="/logout">Log out</a>
+      <div class="navbar-nav ms-auto align-items-center gap-2">
+        <% if (!curUser) { %>
+          <a class="nav-links btn btn-primary px-3 py-1 rounded-pill text-white" href="/signup">Sign up</a>
+          <a class="nav-links btn btn-primary px-3 py-1 rounded-pill text-white" href="/login">Log in</a>
+        <% } else { %>
+          <a class="nav-links btn btn-danger px-3 py-1 rounded-pill text-white" href="/logout">Log out</a>
         <% } %>
       </div>
     </div>

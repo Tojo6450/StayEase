@@ -3,7 +3,7 @@
 <div class="container py-5">
   <div class="mx-auto" style="max-width: 600px;">
     <h2 class="mb-4 text-center">Create a New Listing</h2>
-    <form id="listing-form" method="POST" action="/listings" class="needs-validation" novalidate>
+    <form id="listing-form" method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data" >
 
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -17,9 +17,15 @@
         <div class="invalid-feedback">Description is required.</div>
       </div>
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="image" class="form-label">Image URL</label>
         <input type="text" class="form-control" id="image" name="listing[image]" placeholder="Enter image URL" >
+        <div class="invalid-feedback">Image URL is required.</div>
+      </div> -->
+
+       <div class="mb-3">
+        <label for="image" class="form-label">Upload Image</label>
+        <input type="file" class="form-control" id="image" name="listing[image]" >
         <div class="invalid-feedback">Image URL is required.</div>
       </div>
 
