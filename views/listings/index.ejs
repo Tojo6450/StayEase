@@ -1,6 +1,15 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-  <h2 class="page-title">All Listings</h2>
+  <h2 class="page-title">Explore</h2>
+
+  <div class="filters">
+    <a class="filter-item" href="/listings">All listings</a>
+    <a href="/listings?category=sea" class="filter-item">🌊 Sea</a>
+    <a href="/listings?category=mountain" class="filter-item">🏔 Mountain</a>
+    <a href="/listings?category=beach" class="filter-item">🏖 Beach</a>
+    <a href="/listings?category=camping" class="filter-item">🏕 Camping</a>
+    <a href="/listings?category=skiing" class="filter-item">⛷ Skiing</a>
+  </div>
   <div class="listings-container">
     <% for(let listing of allListings) { %>
       <div class="listing-card">

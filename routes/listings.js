@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const Listing = require("../models/listing");
 const {isLoggedin,isOwner,validateListing} = require("../middleware.js")
 const listingController =require("../controllers/listings.js")
 const multer = require('multer');
@@ -11,10 +10,10 @@ const upload = multer({storage})
 router.get("/", listingController.index);
 
 // New Form
-router.get("/new", listingController.renderNewForm);
+router.get("/new",isLoggedin, listingController.renderNewForm);
 
 // Create
-router.post("/", isLoggedin,validateListing,upload.single('listing[image]'), listingController.createListing);
+router.post("/", isLoggedin,upload.single('listing[image]'),validateListing, listingController.createListing);
 
 // Show
 router.get("/:id", listingController.showListing);
@@ -23,7 +22,7 @@ router.get("/:id", listingController.showListing);
 router.get("/:id/edit",isLoggedin, isOwner,listingController.renderEditForm);
 
 // Update
-router.put("/:id", isLoggedin,isOwner,listingController.renderUpdateForm);
+router.put("/:id", isLoggedin,isOwner,upload.single('listing[image]'),validateListing, listingController.renderUpdateForm);
 
 // Delete
 router.delete("/:id",isLoggedin,isOwner, listingController.renderDestroyForm);

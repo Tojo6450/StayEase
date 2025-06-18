@@ -17,21 +17,15 @@
         <div class="invalid-feedback">Description is required.</div>
       </div>
 
-      <!-- <div class="mb-3">
-        <label for="image" class="form-label">Image URL</label>
-        <input type="text" class="form-control" id="image" name="listing[image]" placeholder="Enter image URL" >
-        <div class="invalid-feedback">Image URL is required.</div>
-      </div> -->
-
-       <div class="mb-3">
+      <div class="mb-3">
         <label for="image" class="form-label">Upload Image</label>
-        <input type="file" class="form-control" id="image" name="listing[image]" >
-        <div class="invalid-feedback">Image URL is required.</div>
+        <input type="file" class="form-control" id="image" name="listing[image]" required>
+        <div class="invalid-feedback">Image is required.</div>
       </div>
 
       <div class="mb-3">
         <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" name="listing[price]" pcdlaceholder="Enter price" min="0" required>
+        <input type="number" class="form-control" id="price" name="listing[price]" placeholder="Enter price" min="0" required>
         <div class="invalid-feedback">Price is required and must be non-negative.</div>
       </div>
 
@@ -45,6 +39,21 @@
         <label for="location" class="form-label">Location</label>
         <input type="text" class="form-control" id="location" name="listing[location]" placeholder="Enter location" required>
         <div class="invalid-feedback">Location is required.</div>
+      </div>
+
+      <!-- Category Dropdown -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" name="listing[category]" required>
+          <option value="" selected disabled>Select category</option>
+          <option value="trending">🔥 Trending</option>
+          <option value="sea">🌊 Sea</option>
+          <option value="mountain">🏔 Mountain</option>
+          <option value="beach">🏖 Beach</option>
+          <option value="camping">🏕 Camping</option>
+          <option value="skiing">⛷ Skiing</option>
+        </select>
+        <div class="invalid-feedback">Category is required.</div>
       </div>
 
       <button class="btn btn-primary w-100">Add Listing</button>

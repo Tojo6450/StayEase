@@ -2,9 +2,11 @@ const Listing=require("./models/listing.js")
 const Review=require("./models/review.js")
 const { listingSchema ,reviewSchema} = require("./shema");
 const ExpressError = require("./utils/ExpressError");
+
 module.exports.isLoggedin = (req,res,next)=>{
     if(!req.isAuthenticated()){
         req.session.redirectUrl = req.originalUrl;
+        // console.log(req.originalUrl);
         req.flash("error","You must be logged in !");
         return res.redirect("/login");
     }
@@ -12,6 +14,7 @@ module.exports.isLoggedin = (req,res,next)=>{
 }
 
 module.exports.saveRedirectUrl = (req,res,next)=>{
+  console.log(req.session.redirectUrl)
     if(req.session.redirectUrl){
         res.locals.redirectUrl = req.session.redirectUrl;
     }

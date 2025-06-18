@@ -1,11 +1,15 @@
 <% layout("/layouts/boilerplate") %>
 
+<script>
+   const mapToken = "<%= process.env.MAP_TOKEN %>";
+   const coordinates =  <%- JSON.stringify(listing.geometry.coordinates) %>;
+</script>
 <body class="bg-light">
   <div class="container min-vh-75 py-5">
     <!-- Listing Title at the Top -->
     <h1 class="text-center text-primary mb-4"><%= listing.title %></h1>
 
-    <div class="card shadow-sm mx-auto" style="max-width: 800px;">
+    <div class="card shadow-sm mx-auto" style="max-width: 870px;">
       <div class="card-body">
         <p class="card-text">Owned by <i><%= listing.owner.username %></i></p>
         <!-- Listing Image -->
@@ -108,5 +112,13 @@
 <% } else { %>
   <p class="text-muted mt-4">No reviews yet.</p>
 <% } %>
+</div>
+
+ <div class="col-8 offset-2 mb-3">
+  <h3>Where you'll be</h3>
+  <div id="map"></div>
+ </div>
 
 </body>
+
+<script src="/js/map.js"></script>

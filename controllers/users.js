@@ -41,7 +41,8 @@ module.exports.loginUser = (req, res, next) => {
     req.login(user, (err) => {
       if (err) return next(err);
       req.flash("success", "Welcome back to StayEase!");
-      const redirectUrl = res.locals.redirectUrl || "/listings";
+      const redirectUrl = res.locals.redirectUrl || "/listings" ;
+      // console.log(redirectUrl);
       res.redirect(redirectUrl);
     });
   })(req, res, next);

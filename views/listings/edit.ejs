@@ -3,7 +3,7 @@
 <div class="container py-5">
   <div class="mx-auto" style="max-width: 600px;">
     <h2 class="mb-4 text-center">Edit Your Listing</h2>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
 
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -17,10 +17,14 @@
         <div class="invalid-feedback">Description is required.</div>
       </div>
 
+       <div class="mb-3">
+          <p>Original Listing Image</p>
+          <img src="<%= listing.image.url %>" alt="Listing Image" class="thumbnail-image">
+        </div>
+
       <div class="mb-3">
         <label for="image" class="form-label">Image URL</label>
-        <input type="text" class="form-control" id="image" name="listing[image]" value="<%= listing.image %>" required>
-        <div class="invalid-feedback">Image URL is required.</div>
+        <input type="file" class="form-control" id="image" name="listing[image]" >
       </div>
 
       <div class="mb-3">
@@ -39,6 +43,19 @@
         <label for="location" class="form-label">Location</label>
         <input type="text" class="form-control" id="location" name="listing[location]" value="<%= listing.location %>" required>
         <div class="invalid-feedback">Location is required.</div>
+      </div>
+       
+       <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" name="listing[category]" required>
+          <option value="">Select category</option>
+          <option value="sea" <%= listing.category === 'sea' ? 'selected' : '' %>>🌊 Sea</option>
+          <option value="mountain" <%= listing.category === 'mountain' ? 'selected' : '' %>>🏔 Mountain</option>
+          <option value="beach" <%= listing.category === 'beach' ? 'selected' : '' %>>🏖 Beach</option>
+          <option value="camping" <%= listing.category === 'camping' ? 'selected' : '' %>>🏕 Camping</option>
+          <option value="skiing" <%= listing.category === 'skiing' ? 'selected' : '' %>>⛷ Skiing</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
       </div>
 
       <button type="submit" class="btn btn-success w-100">Update Listing</button>
