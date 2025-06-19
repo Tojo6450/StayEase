@@ -17,6 +17,7 @@ const User = require("./models/user.js")
 const listingsRoutes = require("./routes/listings");
 const reviewsRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/user.js");
+const cartRoutes = require("./routes/cart");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/stayease";
 mongoose.connect(MONGO_URL).then(() => console.log("Connected to DB"));
@@ -26,6 +27,7 @@ app.set("views", path.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
@@ -68,6 +70,7 @@ app.get("/", (req, res) => {
 app.use("/listings", listingsRoutes);
 app.use("/listings/:id/reviews", reviewsRoutes);
 app.use("/",userRoutes);
+app.use("/cart",cartRoutes)
 
 // Handle 404 - Page Not Found
 // app.all("*", (req, res, next) => {

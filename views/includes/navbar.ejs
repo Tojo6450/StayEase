@@ -1,23 +1,37 @@
 <nav class="navbar navbar-expand-md sticky-top border-bottom fading-navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand " href="#"><i class="fa-regular fa-compass"></i></a>
+
+    <!-- Overlay -->
+    <div id="navbar-overlay" class="navbar-overlay"></div>
+
+    <!-- Auth buttons -->
+     <!-- <div class="cont"> -->
+    <div class="d-flex align-items-center gap-2 order-md-3 icn">
+      <% if (!curUser) { %>
+        <a class="btn btn-outline-primary px-3 py-1 rounded-pill" href="/login">Log in</a>
+        <a class="btn btn-success px-3 py-1 rounded-pill" href="/signup">Sign up</a>
+      <% } else { %>
+        <a class="btn btn-danger px-3 py-1 rounded-pill icns" href="/logout">Log out</a>
+      <% } %>
+    </div>
+
+    <button class="navbar-toggler ms-2 order-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+     <!-- </div> -->
+    <div class="collapse navbar-collapse justify-content-between order-md-1 cont" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/listings">All listings</a>
         <a class="nav-link" href="/listings/new">Add new listings</a>
       </div>
-      <div class="navbar-nav ms-auto align-items-center gap-2">
-        <% if (!curUser) { %>
-          <a class="nav-links btn btn-primary px-3 py-1 rounded-pill text-white" href="/signup">Sign up</a>
-          <a class="nav-links btn btn-primary px-3 py-1 rounded-pill text-white" href="/login">Log in</a>
-        <% } else { %>
-          <a class="nav-links btn btn-danger px-3 py-1 rounded-pill text-white" href="/logout">Log out</a>
-        <% } %>
-      </div>
+
+      <form class="d-none d-md-flex mx-auto" action="/listings" method="GET">
+        <input class="form-control frm me-2" type="search" name="search" placeholder="Search by name, country" value="<%= typeof search !== 'undefined' ? search : '' %>">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+         
     </div>
   </div>
 </nav>

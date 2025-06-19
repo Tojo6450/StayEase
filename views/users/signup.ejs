@@ -1,34 +1,36 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="container py-5">
-  <div class="mx-auto" style="max-width: 600px;">
-    <h2 class="mb-4 text-center">Sign Up</h2>
+<div class="signup-card">
+  <h2 class="mb-4 text-center">Sign Up</h2>
 
-    <form id="signup-form" method="POST" action="/signup" class="needs-validation" novalidate>
+  <form id="signup-form" method="POST" action="/signup" class="needs-validation" novalidate>
 
-      <!-- Username -->
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
-        <div class="invalid-feedback">Username is required.</div>
-      </div>
+    <!-- Username -->
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control frm" id="username" name="username" placeholder="Choose a username" required>
+      <div class="invalid-feedback">Username is required.</div>
+    </div>
 
-      <!-- Email -->
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-        <div class="invalid-feedback">A valid email is required.</div>
-      </div>
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control frm" id="email" name="email" placeholder="Enter your email" required>
+      <div class="invalid-feedback">A valid email is required.</div>
+    </div>
 
-      <!-- Password -->
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required minlength="6">
-        <div class="invalid-feedback">Password must be at least 6 characters.</div>
-      </div>
+    <!-- Password -->
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control frm" id="password" name="password" placeholder="Enter your password" required minlength="6">
+      <div class="invalid-feedback">Password must be at least 6 characters.</div>
+    </div>
 
-      <button type="submit" class="btn btn-primary w-20">Sign Up</button>
+    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
 
-    </form>
-  </div>
+    <div class="signup-text text-center">
+      Already have an account? <a href="/login">Login</a>
+    </div>
+
+  </form>
 </div>

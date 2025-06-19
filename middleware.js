@@ -14,7 +14,7 @@ module.exports.isLoggedin = (req,res,next)=>{
 }
 
 module.exports.saveRedirectUrl = (req,res,next)=>{
-  console.log(req.session.redirectUrl)
+  // console.log(req.session.redirectUrl)
     if(req.session.redirectUrl){
         res.locals.redirectUrl = req.session.redirectUrl;
     }
@@ -57,3 +57,11 @@ module.exports.validateReview = (req, res, next) => {
   }
   next();
 };
+
+module.exports.isLoggedIn = (req, res, next)=> {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    // Instead of redirect, send 401
+    res.status(401).json({ success: false, message: 'Unauthorized' });
+}
