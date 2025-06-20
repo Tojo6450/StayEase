@@ -2,11 +2,8 @@
   <div class="container-fluid">
     <a class="navbar-brand " href="#"><i class="fa-regular fa-compass"></i></a>
 
-    <!-- Overlay -->
     <div id="navbar-overlay" class="navbar-overlay"></div>
 
-    <!-- Auth buttons -->
-     <!-- <div class="cont"> -->
     <div class="d-flex align-items-center gap-2 order-md-3 icn">
       <% if (!curUser) { %>
         <a class="btn btn-outline-primary px-3 py-1 rounded-pill" href="/login">Log in</a>
@@ -19,12 +16,12 @@
     <button class="navbar-toggler ms-2 order-md-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-     <!-- </div> -->
+
     <div class="collapse navbar-collapse justify-content-between order-md-1 cont" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/listings">Explore </a>
-        <a class="nav-link" href="/listings/new">Add new listings</a>
+        <a class="nav-link" href="/listings/new">Create your listings</a>
       </div>
 
       <form class="d-none d-md-flex mx-auto" action="/listings" method="GET">
