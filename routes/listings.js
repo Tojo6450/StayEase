@@ -16,15 +16,15 @@ router.get("/new",isLoggedin, listingController.renderNewForm);
 router.post("/", isLoggedin,upload.single('listing[image]'),validateListing, listingController.createListing);
 
 // Show
-router.get("/:id", listingController.showListing);
+router.get("/:listingId", listingController.showListing);
 
 // Edit Form
-router.get("/:id/edit",isLoggedin, isOwner,listingController.renderEditForm);
+router.get("/:listingId/edit",isLoggedin, isOwner,listingController.renderEditForm);
 
 // Update
-router.put("/:id", isLoggedin,isOwner,upload.single('listing[image]'),validateListing, listingController.renderUpdateForm);
+router.put("/:listingId", isLoggedin,isOwner,upload.single('listing[image]'),validateListing, listingController.renderUpdateForm);
 
 // Delete
-router.delete("/:id",isLoggedin,isOwner, listingController.renderDestroyForm);
+router.delete("/:listingId",isLoggedin,isOwner, listingController.renderDestroyForm);
 
 module.exports = router;

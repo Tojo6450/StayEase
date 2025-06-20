@@ -16,8 +16,8 @@ const listingSchema = new Schema({
   country: String,
   category: {
     type: String,
-    enum: ['sea', 'mountain', 'beach', 'camping', 'skiing'],
-    required: true
+    enum: ['room', 'iconic city', 'mountain', 'beach','castle', 'pool','farm','arctic'],
+    // required: true
   }, 
   reviews:[
     {
@@ -33,11 +33,11 @@ const listingSchema = new Schema({
     type: {
       type: String,
       enum: ['Point'],
-      // required: true
+      required: true
     },
     coordinates: {
       type: [Number],
-      // required: true
+      required: true
     }
   }
 });

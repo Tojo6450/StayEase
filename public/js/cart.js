@@ -1,4 +1,17 @@
-// Add to cart or remove from cart
+// toggle-switch
+let taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline"
+        info.style.color = "#6c757d"
+      }
+      else info.style.display = "none";
+    }
+  });
+
+  
 document.querySelectorAll('.cart-icon-btn').forEach(button => {
     button.addEventListener('click', () => {
         const listingId = button.dataset.id;

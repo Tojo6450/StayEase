@@ -1,6 +1,6 @@
 const Listing=require("./models/listing.js")
 const Review=require("./models/review.js")
-const { listingSchema ,reviewSchema} = require("./shema");
+const { listingSchema ,reviewSchema} = require("./schema");
 const ExpressError = require("./utils/ExpressError");
 
 module.exports.isLoggedin = (req,res,next)=>{
@@ -21,21 +21,21 @@ module.exports.saveRedirectUrl = (req,res,next)=>{
     next();
 }
 module.exports.isOwner=async (req,res,next)=>{
-    let {id}=req.params;
-    let listing=await Listing.findById(id);
+    let {listingId}=req.params;
+    let listing=await Listing.findById(listingId);
     if(!listing.owner.equals(res.locals.curUser._id)){
         req.flash("error","You are not the owner of this listing");
-        return res.redirect(`/listings/${id}`);
+        return res.redirect(`/listings/${listingId}`);
     }
     next();
 }
 
 module.exports.isReviewAuthor = async(req,res,next)=>{
-  let {id,reviewId}=req.params;
+  let {listingId,reviewId}=req.params;
   let review = await Review.findById(reviewId);
   if(!review.author.equals(res.locals.curUser._id)){
     req.flash("error","You are not the author of this review");
-    return res.redirect(`/listings/${id}`);
+    return res.redirect(`/listings/${listingId}`);
   }
   next()
 }

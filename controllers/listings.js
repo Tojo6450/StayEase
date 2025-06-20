@@ -50,7 +50,7 @@ module.exports.createListing = async (req, res, next) => {
     });
 
     let savedListing = await newListing.save();
-    console.log(savedListing);
+    // console.log(savedListing);
 
     req.flash("success", "New Listing created!");
     res.redirect("/listings");
@@ -63,8 +63,8 @@ module.exports.createListing = async (req, res, next) => {
 
 module.exports.showListing = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const listing = await Listing.findById(id).populate({
+    const { listingId } = req.params;
+    const listing = await Listing.findById(listingId).populate({
       path:"reviews",
       populate:{
         path:"author",
@@ -75,7 +75,7 @@ module.exports.showListing = async (req, res, next) => {
       req.flash("error","Listing you created for does not exist!")
       res.redirect("/listings");
     }
-    // console.log(listing)
+  
      res.render("listings/show", { listing });
   } catch (err) {
     next(err);
@@ -84,8 +84,8 @@ module.exports.showListing = async (req, res, next) => {
 
 module.exports.renderEditForm = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const listing = await Listing.findById(id);
+    const { listingId } = req.params;
+    const listing = await Listing.findById(listingId);
     if(!listing){
       req.flash("error","Listing you created for does not exist!")
       res.redirect("/listings");
@@ -101,7 +101,7 @@ module.exports.renderEditForm = async (req, res, next) => {
 
 module.exports.renderUpdateForm = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { listingId } = req.params;
     const data = req.body.listing;
 
     const response = await geocodingClient.forwardGeocode({
@@ -109,7 +109,7 @@ module.exports.renderUpdateForm = async (req, res, next) => {
       limit: 1,
     }).send();
 
-    let listing = await Listing.findById(id);
+    let listing = await Listing.findById(listingId);
     if (!listing) {
       req.flash("error", "Listing not found!");
       return res.redirect("/listings");
@@ -123,7 +123,7 @@ module.exports.renderUpdateForm = async (req, res, next) => {
     listing.category = data.category;
     listing.geometry = response.body.features[0].geometry;
 
-    // If new image uploaded
+    
     if (req.file) {
       listing.image = {
         url: req.file.path,
@@ -133,7 +133,7 @@ module.exports.renderUpdateForm = async (req, res, next) => {
 
     await listing.save();
     req.flash("success", "Listing updated!");
-    res.redirect(`/listings/${id}`);
+    res.redirect(`/listings/${listingId}`);
   } catch (err) {
     next(err);
   }
@@ -142,8 +142,8 @@ module.exports.renderUpdateForm = async (req, res, next) => {
 
 module.exports.renderDestroyForm = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    await Listing.findByIdAndDelete(id);
+    const { listingId } = req.params;
+    await Listing.findByIdAndDelete(listingId);
     res.redirect("/listings");
     req.flash("success","Listing deleted!")
   } catch (err) {

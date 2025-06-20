@@ -9,6 +9,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash')
 const passport = require("passport")
 const LocalStrategy = require("passport-local")
@@ -19,7 +20,7 @@ const reviewsRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/user.js");
 const cartRoutes = require("./routes/cart");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/stayease";
+const MONGO_URL = process.env.MONGO_URL
 mongoose.connect(MONGO_URL).then(() => console.log("Connected to DB"));
 
 app.set("view engine", "ejs");
@@ -31,8 +32,21 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
+const store = MongoStore.create({
+  mongoUrl:MONGO_URL,
+  crypto:{
+    secret:process.env.SESSION_SECRET
+  },
+  touchAfter: 24*3600,
+})
+
+store.on("error",()=>{
+  console.log("Error in Mongo session store",err);
+})
+
 const sessionOptions = {
-  secret:"mycode",
+  store,
+  secret:process.env.SESSION_SECRET,
   resave:false,
   saveUninitialized:true,
   cookie:{
@@ -68,14 +82,14 @@ app.get("/", (req, res) => {
 
 // Mount routers
 app.use("/listings", listingsRoutes);
-app.use("/listings/:id/reviews", reviewsRoutes);
+app.use("/listings/:listingId/reviews", reviewsRoutes);
 app.use("/",userRoutes);
 app.use("/cart",cartRoutes)
 
 // Handle 404 - Page Not Found
-// app.all("*", (req, res, next) => {
-//   res.status(404).render("error", { message: "Page Not Found (404)" });
-// });
+app.use((req, res, next) => {
+  res.status(404).render("error", { message: "Page Not Found (404)" });
+});
 
 // Error handler
 app.use((err, req, res, next) => {
