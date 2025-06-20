@@ -36,7 +36,7 @@ module.exports.createListing = async (req, res, next) => {
       query: req.body.listing.location,
       limit: 1,
     }).send();
-
+    console.log(req.file);
     let url = req.file.path;
     let filename = req.file.filename;
 
@@ -114,13 +114,13 @@ module.exports.renderUpdateForm = async (req, res, next) => {
       req.flash("error", "Listing not found!");
       return res.redirect("/listings");
     }
-
+  //  console.log(listing.category)
     listing.title = data.title;
     listing.description = data.description;
     listing.price = data.price;
     listing.country = data.country;
     listing.location = data.location;
-    listing.category = data.category;
+    if(listing.category)listing.category = data.category;
     listing.geometry = response.body.features[0].geometry;
 
     

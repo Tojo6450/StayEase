@@ -85,9 +85,9 @@ app.use("/",userRoutes);
 app.use("/cart",cartRoutes)
 
 
-app.use((req, res, next) => {
-  res.status(404).render("error", { message: "Page Not Found (404)" });
-});
+// app.use((req, res, next) => {
+//   res.status(404).render("error", { message: "Page Not Found (404)" });
+// });
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = "Something went wrong!" } = err;
