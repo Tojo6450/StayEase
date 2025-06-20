@@ -79,24 +79,22 @@ app.use((req,res,next)=>{
 app.get("/", (req, res) => {
   res.render("home")
 });
-
-// Mount routers
 app.use("/listings", listingsRoutes);
 app.use("/listings/:listingId/reviews", reviewsRoutes);
 app.use("/",userRoutes);
 app.use("/cart",cartRoutes)
 
-// Handle 404 - Page Not Found
+
 app.use((req, res, next) => {
   res.status(404).render("error", { message: "Page Not Found (404)" });
 });
 
-// Error handler
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = "Something went wrong!" } = err;
   res.status(statusCode).render("error", { message });
 });
 
-app.listen(8080, () => {
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
   console.log("Server is listening on port 8080");
 });
