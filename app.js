@@ -79,6 +79,9 @@ app.use((req,res,next)=>{
 app.get("/", (req, res) => {
   res.render("home")
 });
+app.get("/ping", (req,res)=>{
+  res.send("pong")
+});
 app.use("/listings", listingsRoutes);
 app.use("/listings/:listingId/reviews", reviewsRoutes);
 app.use("/",userRoutes);
