@@ -120,7 +120,7 @@ module.exports.renderUpdateForm = async (req, res, next) => {
     listing.price = data.price;
     listing.country = data.country;
     listing.location = data.location;
-    if(listing.category)listing.category = data.category;
+    if(data.category)listing.category = data.category;
     listing.geometry = response.body.features[0].geometry;
 
     
