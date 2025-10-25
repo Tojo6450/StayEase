@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StayEase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Simple header -->
+  <div class="container-fluid py-3 px-4 d-flex justify-content-between align-items-center">
+    <div>
+      <a href="/listings" class="btn btn-outline-primary rounded-pill">All Listings</a>
+    </div>
+    <div class="d-flex gap-2">
+      <% if (!curUser) { %>
+        <a href="/login" class="btn btn-outline-primary rounded-pill">Login</a>
+        <a href="/signup" class="btn btn-danger rounded-pill">Sign up</a>
+      <% } else { %>
+        <a href="/logout" class="btn btn-danger rounded-pill">Log out</a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Blurred background -->
+  <div class="blur-background"></div>
+
+  <!-- Main content -->
+  <section class="text-center py-7 home-section">
+    <div class="icon mb-4">
+      <i class="fas fa-home fa-3x text-primary"></i>
+    </div>
+    <h1 class="display-4 mb-3 text-primary">Welcome to StayEase</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 600px;">
+      Your trusted rental platform. Create, edit, update, delete listings, and leave reviews for perfect stays — all in one place.
+    </p>
+    <div class="mt-4">
+      <a href="/listings" class="btn btn-primary btn-lg px-4 rounded-pill">Explore Listings</a>
+      <% if (!curUser) { %>
+        <a href="/signup" class="btn btn-outline-secondary btn-lg px-4 rounded-pill ms-3 text-dark bgg">Join Now</a>
+      <% } %>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
