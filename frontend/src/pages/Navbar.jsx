@@ -15,19 +15,19 @@ function Navbar() {
     const query = searchInput.trim();
     navigate(query ? `/listings?search=${encodeURIComponent(query)}` : '/listings');
     setSearchInput('');
-    setIsMobileMenuOpen(false); // Close menu on search
+    setIsMobileMenuOpen(false); 
   };
 
   const handleLogout = () => {
     logout();
-    setIsMobileMenuOpen(false); // Close menu on logout
+    setIsMobileMenuOpen(false); 
   }
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Left: Brand and Desktop Links */}
+    
           <div className="flex items-center space-x-6">
             <Link className="flex items-center text-gray-800 hover:text-blue-600" to="/" onClick={() => setIsMobileMenuOpen(false)}>
               <i className="fa-regular fa-compass mr-2 text-xl"></i>

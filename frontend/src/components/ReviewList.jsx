@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useAuth } from '../context/Authcontext' // Adjust path if needed
+import { useAuth } from '../context/Authcontext' 
 
 const apiClient = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL ,
