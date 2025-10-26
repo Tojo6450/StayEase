@@ -1,27 +1,27 @@
 import React from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useAuth } from '../context/Authcontext';
+import { useAuth } from '../context/Authcontext' // Adjust path if needed
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api',
     withCredentials: true,
 });
 
 function ReviewList({ reviews, listingId, onReviewDeleted }) {
-    const { user } = useAuth(); // Get current user to check ownership for delete button
+    const { user } = useAuth(); 
 
     const handleDeleteReview = async (reviewId) => {
-        if (!window.confirm('Are you sure you want to delete this review?')) {
-            return;
-        }
         try {
             const response = await apiClient.delete(`/listings/${listingId}/reviews/${reviewId}`);
+
             if (response.data.success) {
                 toast.success('Review deleted successfully!');
                 if (onReviewDeleted) {
-                    onReviewDeleted(); // Notify parent to refresh
+                    onReviewDeleted();
                 }
+            } else {
+                 toast.error(response.data.message || 'Could not delete review.');
             }
         } catch (error) {
             console.error('Delete review error:', error);
@@ -29,7 +29,6 @@ function ReviewList({ reviews, listingId, onReviewDeleted }) {
         }
     };
 
-    // Helper to render stars based on rating
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -48,36 +47,41 @@ function ReviewList({ reviews, listingId, onReviewDeleted }) {
                 <p className="text-muted">No reviews yet. Be the first to leave one!</p>
             ) : (
                 <div className="row g-3">
-                    {reviews.map((review) => (
-                        <div className="col-12 col-md-6" key={review._id}>
-                            <div className="card h-100 shadow-sm border-0">
-                                <div className="card-body">
-                                    <h6 className="card-title mb-1">
-                                        @{review.author?.username || 'Anonymous'}
-                                    </h6>
-                                    <div className="mb-2">
-                                        {renderStars(review.rating)}
-                                    </div>
-                                    <p className="card-text mb-2">{review.comment}</p>
-                                    <small className="text-muted">
-                                        {new Date(review.createdAt).toLocaleDateString()}
-                                    </small>
+                    {reviews.map((review) => {
+                         const isAuthor = user && review.author && review.author._id === user._id;
 
-                                    {user && review.author?._id === user._id && (
-                                        <>
-                                            <hr className="my-2"/>
-                                            <button
-                                                className="btn btn-sm btn-outline-danger"
-                                                onClick={() => handleDeleteReview(review._id)}
-                                            >
-                                                <i className="bi bi-trash"></i> Delete
-                                            </button>
-                                        </>
-                                    )}
+                         return (
+                            <div className="col-12 col-md-6" key={review._id}>
+                                <div className="card h-100 shadow-sm border-0">
+                                    <div className="card-body">
+                                        <h6 className="card-title mb-1">
+                                            @{review.author?.username || 'Anonymous'}
+                                        </h6>
+                                        <div className="mb-2">
+                                            {renderStars(review.rating)}
+                                        </div>
+                                        <p className="card-text mb-2">{review.comment}</p>
+                                        <small className="text-muted">
+                                            {new Date(review.createdAt).toLocaleDateString()}
+                                        </small>
+
+                                        {isAuthor && (
+                                            <>
+                                                <hr className="my-2"/>
+                                                <button
+                                                    className="btn btn-sm btn-outline-danger"
+                                                    onClick={() => handleDeleteReview(review._id)}
+                                                    title="Delete this review"
+                                                >
+                                                    <i className="bi bi-trash"></i> Delete
+                                                </button>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                         );
+                    })}
                 </div>
             )}
         </div>
