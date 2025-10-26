@@ -1,30 +1,42 @@
 const express = require("express");
 const router = express.Router();
-const {isLoggedin,isOwner,validateListing} = require("../middleware.js")
-const listingController =require("../controllers/listings.js")
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js"); 
+const listingController = require("../controllers/listings.js");
 const multer = require('multer');
-const {storage} = require("../cloudConfig.js");
-const upload = multer({storage})
+const { storage } = require("../cloudConfig.js"); 
+const upload = multer({ storage });
 
-// Index
+// Index Route: Get all listings
 router.get("/", listingController.index);
 
-// New Form
-router.get("/new",isLoggedin, listingController.renderNewForm);
+// Create Route: Add a new listing
+router.post(
+    "/",
+    isLoggedIn,
+    upload.single('listing[image]'),
+    validateListing,
+    listingController.createListing
+);
 
-// Create
-router.post("/", isLoggedin,upload.single('listing[image]'),validateListing, listingController.createListing);
-
-// Show
+// Show Route: Get a specific listing by ID
 router.get("/:listingId", listingController.showListing);
 
-// Edit Form
-router.get("/:listingId/edit",isLoggedin, isOwner,listingController.renderEditForm);
+// Update Route: Update a specific listing by ID
+router.put(
+    "/:listingId",
+    isLoggedIn,
+    isOwner,
+    upload.single('listing[image]'), 
+    validateListing,
+    listingController.updateListing 
+);
 
-// Update
-router.put("/:listingId", isLoggedin,isOwner,upload.single('listing[image]'),validateListing, listingController.renderUpdateForm);
-
-// Delete
-router.delete("/:listingId",isLoggedin,isOwner, listingController.renderDestroyForm);
+// Delete Route: Delete a specific listing by ID
+router.delete(
+    "/:listingId",
+    isLoggedIn,
+    isOwner,
+    listingController.destroyListing 
+);
 
 module.exports = router;
