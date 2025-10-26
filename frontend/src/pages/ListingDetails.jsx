@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useAuth } from '../context/AuthContext';
-// Import child components (to be created)
+import { useAuth } from '../context/Authcontext';
+
 import ReviewList from '../components/ReviewList';
 import ReviewForm from '../components/ReviewForm';
-import MapComponent from '../components/Map'; // Assuming you create this
+import MapComponent from '../components/Map'; 
 
 const apiClient = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
