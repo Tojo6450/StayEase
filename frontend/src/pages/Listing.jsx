@@ -7,7 +7,7 @@ import CartIcon from '../components/CartIcon';
 import CartPopup from '../components/CartPopup';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
 });
 

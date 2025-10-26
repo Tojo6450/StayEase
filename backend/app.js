@@ -66,15 +66,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     res.json({ message: "Welcome to the StayEase API" });
 });
 
-app.get("/api/ping", (req, res) => {
+app.get("/ping", (req, res) => {
     res.send("pong");
 });
 
-app.get("/api/me", (req, res) => {
+app.get("/me", (req, res) => {
     if (req.isAuthenticated()) {
         const { _id, username, email } = req.user;
         res.json({ user: { _id, username, email } });
@@ -83,10 +83,10 @@ app.get("/api/me", (req, res) => {
     }
 });
 
-app.use("/api/listings", listingsRoutes);
-app.use("/api/listings/:listingId/reviews", reviewsRoutes);
-app.use("/api", userRoutes);
-app.use("/api/cart", cartRoutes);
+app.use("/listings", listingsRoutes);
+app.use("/listings/:listingId/reviews", reviewsRoutes);
+app.use("/", userRoutes);
+app.use("/cart", cartRoutes);
 
 // app.use('/api/*', (req, res, next) => {
 //     res.status(404).json({ message: "API Endpoint Not Found (404)" });

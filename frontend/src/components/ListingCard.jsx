@@ -6,35 +6,34 @@ import { toast } from 'react-toastify';
 
 function ListingCard({ listing, showTaxes }) {
   const { user } = useAuth();
-  const { addToCart, isInCart, loadingCart } = useCart(); // Added loadingCart
+  const { addToCart, isInCart, loadingCart } = useCart(); 
 
-  // Ensure price is treated as a number
+ 
   const price = Number(listing.price) || 0;
   const displayPrice = showTaxes ? (price * 1.18) : price;
   const formattedPrice = displayPrice.toLocaleString("en-IN", {
         style: "currency",
-        currency: "INR", // Ensure this matches your listing currency
+        currency: "INR", 
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     });
 
-  // Re-check isInCart whenever cartItems might change (via context update)
   const itemInCart = isInCart(listing._id);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(`Add to cart clicked for listing: ${listing._id}. In cart: ${itemInCart}`); // Log 1
+    console.log(`Add to cart clicked for listing: ${listing._id}. In cart: ${itemInCart}`); 
 
     if (!user) {
       toast.error('Please log in to add items to the cart.');
       return;
     }
     if (!itemInCart) {
-         console.log('Calling addToCart function...'); // Log 2
-         addToCart(listing._id); // Call the function from context
+         console.log('Calling addToCart function...'); 
+         addToCart(listing._id);
     } else {
-         console.log('Item already in cart, doing nothing.'); // Log 3
+         console.log('Item already in cart, doing nothing.'); 
          toast.info("Item is already in your cart.");
     }
   };

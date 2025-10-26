@@ -3,12 +3,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: import.meta.env.VITE_API_BASE_URL,
     withCredentials: true,
 });
 
 function ReviewForm({ listingId, onReviewSubmitted }) {
-    const [rating, setRating] = useState(0); // Initial rating state
+    const [rating, setRating] = useState(0); 
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -33,16 +33,16 @@ function ReviewForm({ listingId, onReviewSubmitted }) {
 
         try {
             const response = await apiClient.post(`/listings/${listingId}/reviews`, {
-                review: { rating, comment } // Match backend expected structure
+                review: { rating, comment } 
             });
 
             if (response.data.success) {
                 toast.success(response.data.message || 'Review submitted successfully!');
-                setRating(0); // Reset form
+                setRating(0); 
                 setComment('');
                 setValidated(false);
                 if (onReviewSubmitted) {
-                    onReviewSubmitted(); // Notify parent component to refresh reviews
+                    onReviewSubmitted(); 
                 }
             }
         } catch (error) {
@@ -53,7 +53,6 @@ function ReviewForm({ listingId, onReviewSubmitted }) {
         }
     };
 
-    // Basic star rating component (or use a library like react-star-ratings)
     const StarRating = () => {
         return (
             <div className="mb-3">
@@ -63,12 +62,12 @@ function ReviewForm({ listingId, onReviewSubmitted }) {
                         <input
                             type="radio"
                             id={`rate${star}`}
-                            name="rating" // Changed from review[rating]
+                            name="rating" 
                             value={star}
                             checked={rating === star}
                             onChange={handleRatingChange}
                             required
-                            className="btn-check" // Bootstrap hidden radio
+                            className="btn-check" 
                         />
                         <label
                             htmlFor={`rate${star}`}
@@ -92,12 +91,12 @@ function ReviewForm({ listingId, onReviewSubmitted }) {
             className={`needs-validation ${validated ? 'was-validated' : ''}`}
             noValidate
         >
-             <StarRating /> {/* Use the StarRating component */}
+             <StarRating /> 
 
             <div className="mb-3">
                 <label htmlFor="comment" className="form-label">Comment</label>
                 <textarea
-                    name="comment" // Changed from review[comment]
+                    name="comment" 
                     id="comment"
                     cols="30"
                     rows="3"

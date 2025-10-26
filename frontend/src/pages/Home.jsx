@@ -1,18 +1,16 @@
-// src/pages/Home.jsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import your Auth context hook
+import { useAuth } from '../context/AuthContext'; 
 
 function Home() {
-  const { user } = useAuth(); // Get the current user state
+  const { user } = useAuth(); 
 
   return (
     <>
-      {/* Blurred background (assuming this class is defined in your CSS) */}
       <div className="blur-background"></div>
 
-      {/* Main content section */}
-      <section className="text-center py-7 home-section"> {/* Use py-5 or adjust padding as needed */}
+      <section className="text-center py-7 home-section">
         <div className="icon mb-4">
           <i className="fas fa-home fa-3x text-primary"></i>
         </div>
@@ -25,11 +23,10 @@ function Home() {
             Explore Listings
           </Link>
 
-          {/* Conditional "Join Now" button */}
-          {!user && ( // Show only if the user is NOT logged in
+          {!user && (
             <Link
               to="/signup"
-              className="btn btn-outline-secondary btn-lg px-4 rounded-pill ms-3 text-dark bgg" // Kept original classes
+              className="btn btn-outline-secondary btn-lg px-4 rounded-pill ms-3 text-dark bgg" 
             >
               Join Now
             </Link>
