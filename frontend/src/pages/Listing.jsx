@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import ListingCard from '../components/ListingCard';
-import FilterBar from '../components/FilterBar';
+import FilterBar from '../components/Filterbar';
 import CartIcon from '../components/CartIcon';
 import CartPopup from '../components/CartPopup';
 
