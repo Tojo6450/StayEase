@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Ensure path is correct
+import { useAuth } from "../context/Authcontext"; // Ensure path is correct
 
 function Home() {
   const { user } = useAuth();
