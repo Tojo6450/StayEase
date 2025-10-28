@@ -2,7 +2,7 @@
 
 StayEase is a full-stack web application designed as a rental platform, allowing users to browse, list, and manage property rentals. It features user authentication, listing management, reviews, and a shopping cart system. This project demonstrates the integration of a Node.js/Express backend API with a React frontend.
 
-* **Live Frontend (Vercel):** [https://stay-ease-azure-tau.vercel.app/]
+* **Live Frontend (Vercel):** [https://trip-z-xi.vercel.app]
 * **Live Backend API (Render):** [https://stayease-kly1.onrender.com]
 
 ---
