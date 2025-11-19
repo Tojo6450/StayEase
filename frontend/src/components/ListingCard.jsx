@@ -26,7 +26,7 @@ function ListingCard({ listing, showTaxes }) {
     console.log(`Add to cart clicked for listing: ${listing._id}. In cart: ${itemInCart}`); 
 
     if (!user) {
-      toast.error('Please log in to add items to the cart.');
+      toast.error('Please log in to add item to the cart.');
       return;
     }
     if (!itemInCart) {
