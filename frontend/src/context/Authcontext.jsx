@@ -17,14 +17,14 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const checkAuth = async () => {
-    setLoading(true); // Ensure loading is true when checking
+    setLoading(true);
     try {
       const { data } = await apiClient.get('/me');
       setUser(data.user);
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
       setUser(null);
-    } finally { // Use finally to ensure loading is set to false
+    } finally { 
         setLoading(false);
     }
   };
@@ -38,12 +38,12 @@ export const AuthProvider = ({ children }) => {
       const { data } = await apiClient.post('/login', { username, password });
       setUser(data.user);
       toast.success(data.message || 'Welcome back!');
-      return data.user; // Return user data on success
+      return data.user; 
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Login failed. Invalid credentials.';
       toast.error(errorMessage);
-      setUser(null); // Ensure user is null on failed login
-      throw new Error(errorMessage); // Re-throw error for component handling
+      setUser(null); 
+      throw new Error(errorMessage);
     }
   };
 
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error('Logout failed');
-      // Optionally handle specific logout errors
+
     }
   };
 

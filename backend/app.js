@@ -1,6 +1,6 @@
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
+
+require("dotenv").config();
+
 
 const express = require("express");
 const app = express();
@@ -54,6 +54,7 @@ const sessionOptions = {
     cookie: {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        
     }
 };
 
