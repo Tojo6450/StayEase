@@ -1,6 +1,6 @@
-
-require("dotenv").config();
-
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 
 const express = require("express");
 const app = express();
@@ -19,6 +19,8 @@ const reviewsRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/user.js");
 const cartRoutes = require("./routes/cart");
 
+app.set("trust proxy", 1);
+
 const MONGO_URL = process.env.MONGO_URL;
 mongoose.connect(MONGO_URL)
     .then(() => console.log("Connected to DB"))
@@ -30,7 +32,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(cors({
-    origin: ["http://localhost:5173","https://trip-z-xi.vercel.app"],
+    origin: ["http://localhost:5173", "https://trip-z-xi.vercel.app"],
     credentials: true
 }));
 
@@ -46,6 +48,8 @@ store.on("error", (err) => {
     console.log("Error in Mongo session store", err);
 });
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const sessionOptions = {
     store,
     secret: process.env.SESSION_SECRET || 'fallback-secret-for-dev',
@@ -54,7 +58,8 @@ const sessionOptions = {
     cookie: {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax',
     }
 };
 
@@ -89,17 +94,12 @@ app.use("/listings/:listingId/reviews", reviewsRoutes);
 app.use("/", userRoutes);
 app.use("/cart", cartRoutes);
 
-// app.use('/api/*', (req, res, next) => {
-//     res.status(404).json({ message: "API Endpoint Not Found (404)" });
-// });
-
 app.use((err, req, res, next) => {
-
     const { statusCode = 500, message = "Something went wrong!" } = err;
     res.status(statusCode).json({ message });
 });
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Server started `);
+    console.log(`Server started on port ${port}`);
 });
